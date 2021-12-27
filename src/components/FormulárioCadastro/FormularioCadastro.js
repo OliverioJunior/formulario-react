@@ -1,15 +1,23 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, TextField, Switch, FormGroup, FormControlLabel} from "@mui/material/";
 function FormularioCadastro() {
   let respostas = {};
-   
+  let [nome,setNome] = useState("");
+   let [sobrenome,setSobrenome] = useState("");
   return (
     <form onSubmit = { (e) => {
       e.preventDefault();
-      console.log(respostas)
+      console.log(nome,sobrenome)
     }}>
       <TextField
-        onChange = {e => respostas.nome = e.target.value}
+        value={nome}
+        onChange = {(e) =>{
+         let tmpNome = e.target.value
+          if(nome.length >= 3) {
+            tmpNome = tmpNome.substr(0,3)
+           } 
+           setNome(tmpNome)
+          }}
         id="outlined-basic"
         label="Nome"
         variant="outlined"
@@ -17,7 +25,11 @@ function FormularioCadastro() {
         fullWidth
       />
       <TextField
-        onChange = {e => respostas.sobrenome = e.target.value}
+       value={sobrenome}
+       onChange = {(e) =>{
+        let tmpNome = e.target.value
+          setSobrenome(tmpNome)
+         }}
         id="outlined-basic"
         label="Sobrenome"
         variant="outlined"
@@ -34,11 +46,11 @@ function FormularioCadastro() {
       />
       <FormGroup>
         <FormControlLabel
-          control={<Switch defaultChecked  onChange = {e => respostas.promocoes = e.target.checked ? true: false}/>}
+          control={<Switch defaultChecked onSubmit = {e => respostas.promocoes = e.target.checked ? true: false}/>}
           label="Promoções"
         />
         <FormControlLabel
-          control={<Switch defaultChecked  onChange = {e => respostas.novidades = e.target.checked ? true: false}/>}
+          control={<Switch defaultChecked value ="true" onSubmit = {e => respostas.novidades = e.target.checked ? true: false}/>}
           label="Novidades"
         />
       </FormGroup>
