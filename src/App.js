@@ -12,7 +12,13 @@ export default function App() {
       <Typography variant="h3" component="h1" align = "center">
         Formulário de Cadastro
       </Typography>
-      <FormularioCadastro />
+      <FormularioCadastro aoEnviar={aoEnviarFormulario}/>
     </Container>
   );
+}
+
+function aoEnviarFormulario(dados){
+
+  console.log(dados)
+
 }

@@ -1,13 +1,16 @@
 import React, {useState} from "react";
 import {Button, TextField, Switch, FormGroup, FormControlLabel} from "@mui/material/";
-function FormularioCadastro() {
-  let respostas = {};
+function FormularioCadastro({aoEnviar}) {
+  
   let [nome,setNome] = useState("");
-   let [sobrenome,setSobrenome] = useState("");
+  let [sobrenome,setSobrenome] = useState("");
+  let [cpf,setCpf] = useState("");
+  let [promocoes,setPromocoes] = useState(true);
+  let [novidades,setNovidades] = useState(true);
   return (
     <form onSubmit = { (e) => {
       e.preventDefault();
-      console.log(nome,sobrenome)
+      aoEnviar({nome,sobrenome,cpf,promocoes,novidades})
     }}>
       <TextField
         value={nome}
@@ -27,8 +30,8 @@ function FormularioCadastro() {
       <TextField
        value={sobrenome}
        onChange = {(e) =>{
-        let tmpNome = e.target.value
-          setSobrenome(tmpNome)
+        let tmpSobrenome = e.target.value
+          setSobrenome(tmpSobrenome)
          }}
         id="outlined-basic"
         label="Sobrenome"
@@ -37,7 +40,11 @@ function FormularioCadastro() {
         fullWidth
       />
       <TextField
-        onChange = {e => respostas.cpf = e.target.value}
+        value={cpf}
+        onChange = {(e) =>{
+         let tmpCpf = e.target.value
+           setCpf(tmpCpf)
+          }}
         id="outlined-basic"
         label="CPF"
         variant="outlined"
@@ -46,11 +53,23 @@ function FormularioCadastro() {
       />
       <FormGroup>
         <FormControlLabel
-          control={<Switch defaultChecked onSubmit = {e => respostas.promocoes = e.target.checked ? true: false}/>}
+          control={<Switch 
+            
+            checked={promocoes} 
+            onChange = {(e) =>{
+            let tmpPromocoes = e.target.checked
+              setPromocoes(tmpPromocoes)
+             }}/>}
           label="Promoções"
         />
         <FormControlLabel
-          control={<Switch defaultChecked value ="true" onSubmit = {e => respostas.novidades = e.target.checked ? true: false}/>}
+          control={<Switch 
+            checked={novidades} 
+            
+            onChange = {(e) =>{
+            let tmpNovidades = e.target.checked
+              setNovidades(tmpNovidades)
+             }}/>}
           label="Novidades"
         />
       </FormGroup>
